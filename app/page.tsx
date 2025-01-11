@@ -1,3 +1,4 @@
+
 import BaseLayout from "./BaseLayout";
 import Header from "./components/dashboard/Header";
 import Chart from "./components/ui/card";
@@ -32,6 +33,12 @@ export default function DashboardHome() {
             text="Since this month"
             style={{ fontSize: "13px" }}
             rate="23.65%"
+            style2={{
+              color: "",
+              display: "",
+              alignItems: "",
+              fontSize: "",
+            }}
           />
           <Chart
             title="Pending Products"
@@ -44,6 +51,13 @@ export default function DashboardHome() {
               backgroundColor: "#0171E3",
               color: "white",
             }}
+            style2={{
+              color: "",
+              display: "",
+              alignItems: "",
+              fontSize: "",
+            }}
+            rate=""
           />
           <Chart
             title="Advertised Products"
@@ -56,6 +70,13 @@ export default function DashboardHome() {
               backgroundColor: "#0171E3",
               color: "white",
             }}
+            style2={{
+              color: "",
+              display: "",
+              alignItems: "",
+              fontSize: "",
+            }}
+            rate=""
           />
         </div>
 

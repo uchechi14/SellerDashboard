@@ -8,9 +8,9 @@ interface ChartProps {
     style?: React.CSSProperties;
     style2?: React.CSSProperties;
     rate: string;
-    icon:  React.ReactNode;
+    // icon:  React.ReactNode;
 }
-export default function Chart({title, amount, text, chart, style, style2, rate, icon}: ChartProps) {
+export default function Chart({title, amount, text, chart, style, style2, rate,}: ChartProps) {
     return (
         <div className="grid grid-cols-mediaGrid justify-between w-full ">
            <div className="w-full justify-center flex py-[20px] bg-white rounded-[20px] ">
@@ -24,7 +24,7 @@ export default function Chart({title, amount, text, chart, style, style2, rate, 
                 </div>
                 <div className="flex justify-between mt-3">
                     <div style={style}>{text}</div>
-                    <div style={style2}>{rate}{icon}</div>
+                    <div style={style2}>{rate}</div>
                 </div>
             </div>
            </div>
