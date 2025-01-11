@@ -1,15 +1,14 @@
-import { IoMdArrowDropup } from "react-icons/io";
 
 
 interface ChartProps {
     title: string;
     amount: string;
     text: string;
-    chart?: any;
-    style?: any;
-    style2?: any;
+    chart?: string;
+    style?: React.CSSProperties;
+    style2?: React.CSSProperties;
     rate: string;
-    icon: any;
+    icon:  React.ReactNode;
 }
 export default function Chart({title, amount, text, chart, style, style2, rate, icon}: ChartProps) {
     return (
@@ -25,7 +24,7 @@ export default function Chart({title, amount, text, chart, style, style2, rate, 
                 </div>
                 <div className="flex justify-between mt-3">
                     <div style={style}>{text}</div>
-                    <div className={style2}>{rate}{icon}</div>
+                    <div style={style2}>{rate}{icon}</div>
                 </div>
             </div>
            </div>
