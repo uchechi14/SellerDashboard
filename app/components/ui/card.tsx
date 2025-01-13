@@ -12,7 +12,7 @@ interface ChartProps {
 }
 export default function Chart({title, amount, text, chart, style, style2, rate,}: ChartProps) {
     return (
-        <div className="grid grid-cols-mediaGrid justify-between w-full ">
+        <div className="flex justify-between w-full ">
            <div className="w-full justify-center flex py-[20px] bg-white rounded-[20px] ">
            <div className="w-[85%] flex justify-between flex-col">
                 <div className="flex justify-between">

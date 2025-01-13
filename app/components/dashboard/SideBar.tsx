@@ -41,8 +41,8 @@ export default function SideBar(){
     return(
         <>
         <div className="w-[250px] h-[100vh] border-r-[1px] border-r-[#D9D9D9] ">
-        <div className=" font-bold text-[20px] mt-8 ">
-            <div>CUBBY</div>
+        <div className="  mt-8 ">
+            <div className="font-bold text-[25px] font-[MediaSansExtended]">CUBBY</div>
         </div>
         <div className="mt-6">
             <ul>
@@ -53,7 +53,7 @@ export default function SideBar(){
                      `}>
                     <Link href={item.href} className="flex items-center space-x-2">
                         <item.icon  className="text-[1.2rem]" />
-                        <p className="text-[16px]">{item.name}</p>
+                        <p className="text-[16px] font-[HelveticaNeue]">{item.name}</p>
                     </Link>
                 </li>
                 ))}

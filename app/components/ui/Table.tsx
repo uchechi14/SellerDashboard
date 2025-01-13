@@ -54,13 +54,13 @@ export default function Table() {
             <table className="w-full min-w-[55rem] bg-white rounded-[15px]">
                 <thead className="text-left rounded-sm border-b-[1px] border-b-[#D9D9D9]">
                     <tr className="">
-                        <td className="text-[13px] p-3">Product Name</td>
-                        <td className="text-[13px] p-3">Price</td>
-                        <td className="text-[13px] p-3">Tracking ID</td>
-                        <td className="text-[13px] p-3">Pending Since</td>
-                        <td className="text-[13px] p-3">Quantity</td>
-                        <td className="text-[13px] p-3">Order date</td>
-                        <td className="text-[13px] p-3">Actions</td>
+                        <td className="text-[13px] px-3 py-5">Product Name</td>
+                        <td className="text-[13px] px-3 py-5">Price</td>
+                        <td className="text-[13px] px-3 py-5">Tracking ID</td>
+                        <td className="text-[13px] px-3 py-5">Pending Since</td>
+                        <td className="text-[13px] px-3 py-5">Quantity</td>
+                        <td className="text-[13px] px-3 py-5">Order date</td>
+                        <td className="text-[13px] px-3 py-5">Actions </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,8 +68,8 @@ export default function Table() {
                          <tr key={index}>
                          <td className="p-3">
                              <div className="flex items-center gap-2 ">
-                                 <div>
-                                     <Image src={girl} alt="cloth" className="w-[50px] h-[50px] rounded-[10px]" />
+                                 <div className="border border-black rounded-[10px] w-[3rem] aspect-square h-fit overflow-hidden">
+                                     <Image src={girl} alt="cloth" className="w-full h-full object-cover" />
                                  </div>
                                  <p className="text-[12px] font-medium">{items.name}</p>
                              </div>

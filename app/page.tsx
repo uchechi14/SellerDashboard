@@ -11,7 +11,8 @@ export default function DashboardHome() {
       <div className="w-full">
         <Header title="Dashboard" note="Take a deep lovely into your statistical performance"/>
 
-        <div className="flex gap-2 mt-[20px]">
+        <div className=" gap-5 mt-[20px] grid grid-cols-mediaGrid xl:flex xl:w-full
+        ">
           <Chart
             title="Amount sold"
             amount="₦430,876"

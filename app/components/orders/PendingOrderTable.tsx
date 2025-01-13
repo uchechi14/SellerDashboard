@@ -1,5 +1,6 @@
 import Image from "next/image"
 import girl from "../../../public/guy.jpeg"
+import Link from "next/link";
 
 
 const tableItems = [
@@ -55,13 +56,13 @@ export default function PendingOrderTable () {
         <table className="w-full min-w-[55rem] bg-white rounded-[15px]">
             <thead className="text-left rounded-sm border-b-[1px] border-b-[#D9D9D9]">
                 <tr className="">
-                    <td className="text-[13px] p-3">Product Name</td>
-                    <td className="text-[13px] p-3">Price</td>
-                    <td className="text-[13px] p-3">Tracking ID</td>
-                    <td className="text-[13px] p-3">Pending Since</td>
-                    <td className="text-[13px] p-3">Quantity</td>
-                    <td className="text-[13px] p-3">Order date</td>
-                    <td className="text-[13px] p-3">Actions</td>
+                    <td className="text-[13px] px-3 py-5">Product Name</td>
+                    <td className="text-[13px] px-3 py-5">Price</td>
+                    <td className="text-[13px] px-3 py-5">Tracking ID</td>
+                    <td className="text-[13px] px-3 py-5">Pending Since</td>
+                    <td className="text-[13px] px-3 py-5">Quantity</td>
+                    <td className="text-[13px] px-3 py-5">Order date</td>
+                    <td className="text-[13px] px-3 py-5">Actions</td>
                 </tr>
             </thead>
             <tbody>
@@ -100,7 +101,9 @@ export default function PendingOrderTable () {
                      <td className="p-3 ">
                          <div className="flex items-center gap-2">
                          <button className="py-[10px] px-[10px] bg-[#0171E3] rounded-[18px] text-[white] text-[11px]">Mark as sent out</button>
+                         <Link href="/order/orderDetails">
                          <button className="py-[10px] px-[10px] bg-[#000000] rounded-[18px] text-[white] text-[11px]">See details</button>
+                         </Link>
                         </div>
                      </td>
                  </tr>
