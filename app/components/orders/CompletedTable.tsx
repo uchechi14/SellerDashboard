@@ -100,7 +100,7 @@ export default function CompletedTable () {
                      </td>
                      <td className="p-3 ">
                          <div className="flex items-center gap-2">
-                         <button className="py-[10px] px-[10px] bg-[#EDF6FF] rounded-[18px] text-[black] text-[11px] flex items-center gap-1">Order Completed  <FaCircleCheck className="text-[#2FEB99]"/></button>
+                         <button className="py-[10px] px-[5px] bg-[#EDF6FF] rounded-[18px] text-[black] text-[11px] flex items-center gap-1">Order Completed  <FaCircleCheck className="text-[#2FEB99]"/></button>
                          <button className="py-[10px] px-[10px] bg-[#000000] rounded-[18px] text-[white] text-[11px]">See details</button>
                         </div>
                      </td>

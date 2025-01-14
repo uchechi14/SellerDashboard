@@ -11,6 +11,7 @@ import { useState } from "react";
 import PendingOrderTable from "../components/orders/PendingOrderTable";
 import SentOutTable from "../components/orders/SentOutTable";
 import CompletedTable from "../components/orders/CompletedTable";
+import OrderDetails from "./orderDetails/page";
 
 export default function OrderPage() {
 
@@ -49,6 +50,10 @@ export default function OrderPage() {
           <div className="mt-9 w-full">
             {handleToggle()}
           </div>
+          <div className="mt-9 w-full">
+           <OrderDetails />
+          </div>
+          
          </div>
       </div>
     </BaseLayout>

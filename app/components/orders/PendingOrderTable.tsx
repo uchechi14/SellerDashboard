@@ -100,7 +100,7 @@ export default function PendingOrderTable () {
                      </td>
                      <td className="p-3 ">
                          <div className="flex items-center gap-2">
-                         <button className="py-[10px] px-[10px] bg-[#0171E3] rounded-[18px] text-[white] text-[11px]">Mark as sent out</button>
+                         <button className="py-[10px] px-[7px] bg-[#0171E3] rounded-[18px] text-[white] text-[11px]">Mark as sent out</button>
                          <Link href="/order/orderDetails">
                          <button className="py-[10px] px-[10px] bg-[#000000] rounded-[18px] text-[white] text-[11px]">See details</button>
                          </Link>
