@@ -15,7 +15,7 @@ export default function Header ({title, note} : headerItems) {
     return (
         <div className="flex justify-between items-center w-full mt-7 ">
             <div>
-                <h1 className="font-normal text-[29px]">{title}</h1>
+                <h1 className="font-normal font-Helevetica text-[29px]">{title}</h1>
                 <p className="text-[13px]">{note}</p>
             </div>
             <div className="flex items-center gap-3">

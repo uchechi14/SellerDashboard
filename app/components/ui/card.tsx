@@ -1,5 +1,4 @@
 
-
 interface ChartProps {
     title: string;
     amount: string;
