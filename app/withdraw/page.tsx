@@ -8,6 +8,7 @@ import Header from "../components/dashboard/Header";
 import WithdrawalCard from "../components/ui/WithdrawalCard";
 import { RiMenuFoldLine } from "react-icons/ri";
 import WithdrawDetails from "../components/withdrawals/WithdrawDetails";
+import WithdrawalPayment from "../components/withdrawals/WithdrawalPayment";
 
 
 
@@ -180,6 +181,7 @@ export default function WithdrawalPage() {
 
             <div className={`bg-bgTrans justify-center flex items-center w-full fixed  top-0 left-0 h-screen ${isOpen ? 'block' : 'hidden'}`}>
                     <WithdrawDetails handleSubmit={handleSubmit}/>
+                    {/* <WithdrawalPayment handleSubmit={handleSubmit}/> */}
            </div>        
         </div>
         </BaseLayout>
