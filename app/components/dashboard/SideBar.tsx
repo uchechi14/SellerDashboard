@@ -40,7 +40,7 @@ export default function SideBar(){
 
     return(
         <>
-        <div className="w-[230px]  fixed bg-[#F1EFE8] max-md:hidden h-[100vh] border-r-[1px] border-r-[#D9D9D9] ">
+        <div className="w-[230px] tablet:hidden  fixed bg-[#F1EFE8]  h-[100vh] border-r-[1px] border-r-[#D9D9D9] ">
         <div className="  mt-8 ">
             <div className="font-bold text-[25px] font-media-sans">CUBBY</div>
         </div>

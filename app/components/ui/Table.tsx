@@ -50,7 +50,7 @@ const tableItems = [
 
 export default function Table() {
     return (
-        <div className="overflow-x-auto mt-4 bg-white rounded-[15px]">
+        <div className="overflow-x-auto mt-4 bg-white rounded-[15px] ">
             <table className="w-full min-w-[55rem] bg-white rounded-[15px]">
                 <thead className="text-left rounded-sm border-b-[1px] border-b-[#D9D9D9]">
                     <tr className="">

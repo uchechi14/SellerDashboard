@@ -13,31 +13,41 @@ interface WithdrawalProps {
     handleSubmit: () => void;
 }
 
+interface Option {
+    label: string;
+    value: string | number;
+  }
+
+
+// interface WithdrawalDetailsProps {
+//     handleSubmit: () => void
+//     handleBack: () => void
+// }
+
 
 
 const WithdrawDetails: React.FC<WithdrawalProps> = ({handleSubmit}) => {
 
     const [currentStep, setCurrentStep] = useState<'details' | 'payment'>('details')
 
-    const [value, setValue] = useState<string>('')
+       const [value, setValue] = useState<Option | null>(null)
         const options = useMemo(() => countryList().getData(), [])
 
-        const changeHandler = value => {
-        setValue(value)
-        }
+        const changeHandler = (value: Option) => {
+            setValue(value)
+          }
+         
 
         const handleContinue = () => {
             setCurrentStep('payment')
         }
-        const handleBack = () => {
-            setCurrentStep('details')
-        }
+
 
      
 
     return(
         <>
-           <div className={`w-[35%] rounded-[20px] bg-white flex justify-center items-center h-[350px]  ${currentStep === 'details' ? 'flex' : 'hidden'
+           <div className={`w-[35%] rounded-[20px] bg-white flex justify-center items-center h-[400px]  ${currentStep === 'details' ? 'flex' : 'hidden'
                                 }`}>
                 <div className="w-[90%]">
                     <div className='flex justify-between items-center'>
@@ -50,7 +60,7 @@ const WithdrawDetails: React.FC<WithdrawalProps> = ({handleSubmit}) => {
                     <div className="mt-4">
                         <div className='flex gap-3'>  
                             <div className=" w-full ">
-                            <Select options={options} value={value} onChange={changeHandler} />
+                            <Select options={options} value={value} onChange={ () => changeHandler} />
                             </div>
                             <input className="bg-[#F3F3F3] w-full py-[10px] rounded-[15px] outline-none pl-[10px]" placeholder='Select bank'/>
                         </div>
@@ -65,8 +75,9 @@ const WithdrawDetails: React.FC<WithdrawalProps> = ({handleSubmit}) => {
                 </div>
                 {currentStep === 'payment' && (
                 <WithdrawalPayment 
-                    handleBack={handleBack}
-                    handleSubmit={handleSubmit} />
+                    handleSubmit={handleSubmit} 
+                    onBack={() => setCurrentStep('details')} 
+                    />
             )}
                 </>
     )

@@ -22,6 +22,23 @@ export default {
         'media-sans' : ['var(--font-media-sans)'],
         'Helevetica' : ['var(--font-helevetica)'],
       },
+      screens: {
+        pc: { max: "906px" },
+        tablet: { max: "768px" },
+        mobileTab: { max: "620px" },
+        mobile: { max: "450px" },
+        phone: { max: "375px" },
+        radio: { max: "320px" },
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+      },
+      fontSize: {
+        reponsiveText: "clamp(10px,2vw,14px)",
+        reponsiveText2: "clamp(17px,2vw,24px)",
+        reponsiveText3: "clamp(13px,2vw,17px)",
+      },
 
     },
   },

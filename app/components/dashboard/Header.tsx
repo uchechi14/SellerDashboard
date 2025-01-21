@@ -13,15 +13,15 @@ import profile from "../../../public/guy.jpeg"
 
 export default function Header ({title, note} : headerItems) {
     return (
-        <div className="flex justify-between items-center w-full mt-7 ">
+        <div className="flex justify-between items-center w-full mt-7  tablet:flex-col tablet:items-start">
             <div>
                 <h1 className="font-normal font-Helevetica text-[29px]">{title}</h1>
                 <p className="text-[13px]">{note}</p>
             </div>
-            <div className="flex items-center gap-3">
-                <div className="flex justify-center items-center">
+            <div className="flex items-center gap-3 tablet:mt-5 tablet:w-full tablet:justify-between">
+                <div className="flex justify-center items-center mobile:hidden">
                     <p className="relative left-7"><IoSearch /></p>
-                    <input placeholder="Search" className="w-[200px] pl-8 outline-none py-[10px] rounded-[21px] bg-white text-[12px]"/>
+                    <input placeholder="Search" className="w-[100%] pl-8 outline-none py-[10px] rounded-[21px] bg-white text-[12px] tablet:w-full"/>
                 </div>
                 <div className="w-[150px] rounded-[30px] py-[5px] gap-1 bg-white flex items-center justify-center">
                     <p className="text-[14px] font-medium">Agent ID:</p>
@@ -30,7 +30,7 @@ export default function Header ({title, note} : headerItems) {
                 <div className="size-[30px] rounded-full bg-white justify-center items-center flex text-[20px]">
                     <IoMdNotificationsOutline />
                 </div>
-                <div className="size-[30px] rounded-full bg-white justify-center items-center flex text-[20px]">
+                <div className="size-[35px] rounded-full bg-white justify-center items-center flex text-[20px]">
                     <Image src={profile} className="size-full rounded-full" alt="profile"/>
                 </div>
             </div>

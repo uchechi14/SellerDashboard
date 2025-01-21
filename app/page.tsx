@@ -51,6 +51,7 @@ export default function DashboardHome() {
               borderRadius: "50px",
               backgroundColor: "#0171E3",
               color: "white",
+              cursor: "pointer"
             }}
             style2={{
               color: "",
@@ -70,6 +71,7 @@ export default function DashboardHome() {
               borderRadius: "50px",
               backgroundColor: "#0171E3",
               color: "white",
+               cursor: "pointer"
             }}
             style2={{
               color: "",
