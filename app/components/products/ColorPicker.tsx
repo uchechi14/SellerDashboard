@@ -44,7 +44,7 @@ export default function ColorPicker () {
         <div className="flex flex-col ">
           <ImageInput/>
           <CirclePicker 
-                                width={150}
+
                                 colors={customColors}
                                 circleSize={36}
                                 circleSpacing={10}
