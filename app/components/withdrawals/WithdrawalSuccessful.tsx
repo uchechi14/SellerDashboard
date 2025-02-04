@@ -35,9 +35,8 @@ const WithdrawalSuccessful: React.FC<WithdrawalProps> = ({handleSubmit, onBack})
     return(
 
         <>
-           <div className={`w-[40%] tablet:w-[75%] rounded-[20px] bg-white flex justify-center items-center h-[400px] ${currentStep === 'details' ? 'flex' : 'hidden' }`}>
-                <div className="w-[90%]">
-                    <div className='flex justify-between items-center'>
+           <div className={`w-[30rem] max-w-[90%] max-h-[90vh] rounded-[20px] px-[2rem] bg-white flex justify-center items-center  py-[1.5rem] flex-col ${currentStep === 'details' ? 'flex' : 'hidden' }`}>
+                    <div className='flex justify-between items-center  w-full'>
                         <div className={`size-[36px] rounded-full border border-[#F1F1F1] cursor-pointer flex justify-center items-center`} onClick={handleBack}><IoIosArrowBack /></div>
                     <div className={`size-[36px] rounded-full border border-[#F1F1F1] cursor-pointer flex justify-center items-center`} onClick={handleSubmit}>
                     <TbLetterX />
@@ -49,7 +48,7 @@ const WithdrawalSuccessful: React.FC<WithdrawalProps> = ({handleSubmit, onBack})
                        <button className='w-full bg-[#0171E3] rounded-full py-[10px] text-[15px] text-white mt-11 ' onClick={handleContinue}>Done</button>
                     </div>
                     </div>
-                </div>
+
 
                 {currentStep === 'payment' &&
                 <WithdrawalReceipt

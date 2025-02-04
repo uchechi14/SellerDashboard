@@ -19,12 +19,6 @@ interface Option {
   }
 
 
-// interface WithdrawalDetailsProps {
-//     handleSubmit: () => void
-//     handleBack: () => void
-// }
-
-
 
 const WithdrawDetails: React.FC<WithdrawalProps> = ({handleSubmit}) => {
 
@@ -47,10 +41,9 @@ const WithdrawDetails: React.FC<WithdrawalProps> = ({handleSubmit}) => {
 
     return(
         <>
-           <div className={`w-[40%] tablet:w-[75%] rounded-[20px] bg-white flex justify-center items-center h-[400px]  ${currentStep === 'details' ? 'flex' : 'hidden'
-                                }`}>
-                <div className="w-[90%]">
-                    <div className='flex justify-between items-center'>
+           <div className={`w-[30rem] max-w-[90%] max-h-[90vh] rounded-[20px] px-[2rem] bg-white flex justify-center items-center  py-[1.5rem] flex-col  ${currentStep === 'details' ? 'flex' : 'hidden'
+                    }`}>
+                    <div className='flex justify-between w-full items-center'>   
                         <div></div>
                     <p className="text-[18px] font-bold text-center ">Cash Withdrawal</p>
                     <div className={`size-[36px] rounded-full border border-[#F1F1F1] cursor-pointer flex justify-center items-center`} onClick={handleSubmit}>
@@ -72,7 +65,6 @@ const WithdrawDetails: React.FC<WithdrawalProps> = ({handleSubmit}) => {
                     </div>
 
                     
-                </div>
                 {currentStep === 'payment' && (
                 <WithdrawalPayment 
                     handleSubmit={handleSubmit} 
