@@ -6,7 +6,7 @@ interface ProductUploadedProps {
 
 const ProductUploaded: React.FC<ProductUploadedProps> = ({handleSubmit}) => {
     return(
-        <div className="w-[35%] rounded-[20px] bg-white flex justify-center items-center h-[300px]">
+        <div className="w-[40%] rounded-[20px] bg-white flex justify-center items-center h-[300px] tablet:w-[80%]">
             <div className="w-[90%]">
             <div className={`size-[36px] rounded-full bg-[#F1F1F1] cursor-pointer flex justify-center items-center `} onClick={handleSubmit}>
             <TbLetterX />

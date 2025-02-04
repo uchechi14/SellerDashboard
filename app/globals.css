@@ -19,3 +19,8 @@ body {
   background: "#F1EFE8";
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.border2 {
+  border: 1px solid black;
+}

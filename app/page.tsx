@@ -8,10 +8,10 @@ import Table from "./components/ui/Table";
 export default function DashboardHome() {
   return (
     <BaseLayout>
-      <div className="w-full">
+      <div className="w-full  mx-auto ">
         <Header title="Dashboard" note="Take a deep lovely into your statistical performance"/>
 
-        <div className=" gap-5 mt-[20px] grid grid-cols-mediaGrid xl:flex xl:w-full
+ <div className=" gap-5  mt-[20px] grid md:grid-cols-3 w-full
         ">
           <Chart
             title="Amount sold"
@@ -81,11 +81,11 @@ export default function DashboardHome() {
             }}
             rate=""
           />
-        </div>
+        </div> 
 
-        <div className="mt-6">
+        <div className="mt-6 overflow-hidden  w-full">
           <p className="text-[16px] font-semibold">New Orders</p>
-          <div className="flex">
+          <div className="flex overflow-x-auto w-full">
             <Table />
             <div>{/* <ApexChart/> */}</div>
           </div>

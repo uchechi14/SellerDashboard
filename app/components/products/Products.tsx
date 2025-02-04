@@ -1,6 +1,6 @@
 import Image from "next/image";
 import productImage from "../../../public/NEWARRIVALS.png"
-import { useState } from "react";
+// import { useState } from "react";
 import Link from "next/link";
 
 
@@ -9,7 +9,7 @@ interface ProductsProps {
     activeTab: 'all' | 'posted' | 'archived';
 }
 const ProductsItems = [
-    {
+    {   
         name: 'Mens high neck black turtle polo shirt',
         image: productImage,
         price: '₦ 23,000',
@@ -45,10 +45,9 @@ const ProductsItems = [
 
 ]
 
-const Products: React.FC<ProductsProps> = ({ showArchived, activeTab }) => {
-    // const [products, setProducts] = useState<Product[]>([]);
+const Products: React.FC<ProductsProps> = ({activeTab }) => {
 
-    // Filter products based on activeTab
+
     const filteredProducts = ProductsItems.filter(product => {
         if (activeTab === 'all') {
             return true; // Show all products
@@ -71,7 +70,7 @@ const Products: React.FC<ProductsProps> = ({ showArchived, activeTab }) => {
              <div className="">
                  <div className="flex justify-between">
                      <p className="text-[13px] w-[50%]">{item.name}</p>
-                    <Link href={`/product/${item.id}`}>
+                    <Link href={`/product/${item.id}`} key={item.id}>
                     <button className="px-[13px] text-white py-[5px] bg-[#0171E3] text-[13px] rounded-full" type="submit">See details</button>
                     </Link>
                  </div>

@@ -50,7 +50,7 @@ const tableItems = [
 
 export default function Table() {
     return (
-        <div className="overflow-x-auto mt-4 bg-white rounded-[15px] ">
+        <div className=" mt-4 bg-white rounded-[15px] ">
             <table className="w-full min-w-[55rem] bg-white rounded-[15px]">
                 <thead className="text-left rounded-sm border-b-[1px] border-b-[#D9D9D9]">
                     <tr className="">
@@ -66,7 +66,7 @@ export default function Table() {
                 <tbody>
                     {tableItems.map((items, index) => (
                          <tr key={index}>
-                         <td className="p-3">
+                         <td className="p-3 flex-shrink-0">
                              <div className="flex items-center gap-2 ">
                                  <div className="border border-black rounded-[10px] w-[3rem] aspect-square h-fit overflow-hidden">
                                      <Image src={girl} alt="cloth" className="w-full h-full object-cover" />
@@ -75,7 +75,7 @@ export default function Table() {
                              </div>
                          </td>
                          <td className="text-[12px] p-3 font-semibold">{items.price}</td>
-                         <td className="p-3">
+                         <td className="p-3 md:w-fit w-[10rem] flex-shrink-0">
                              <div className="flex items-center px-[5px] gap-1 py-[7px]  justify-center rounded-[20px] bg-[#0171E308]">
                                  <p className="text-[12px] font-medium">Product ID:</p>
                                  <p className="px-[7px] py-[2px] bg-[#E1E3FF] text-[11px] rounded-[20px] text-[#0171E3]">{items.trackingId}</p>

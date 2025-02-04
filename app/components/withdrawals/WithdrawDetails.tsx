@@ -47,7 +47,7 @@ const WithdrawDetails: React.FC<WithdrawalProps> = ({handleSubmit}) => {
 
     return(
         <>
-           <div className={`w-[35%] rounded-[20px] bg-white flex justify-center items-center h-[400px]  ${currentStep === 'details' ? 'flex' : 'hidden'
+           <div className={`w-[40%] tablet:w-[75%] rounded-[20px] bg-white flex justify-center items-center h-[400px]  ${currentStep === 'details' ? 'flex' : 'hidden'
                                 }`}>
                 <div className="w-[90%]">
                     <div className='flex justify-between items-center'>

@@ -15,7 +15,7 @@ interface ChartProps {
 }
 export default function WithdrawalCard({title, amount, text, chart, style, style2, style3, style4, style5, rate,handleClick}: ChartProps) {
     return (
-        <div className="flex justify-between w-full rounded-[20px]" style={style3}>
+        <div className="flex justify-between w-full rounded-[20px] tablet:" style={style3}>
            <div className="w-full justify-center flex py-[20px]  ">
            <div className="w-[85%] flex justify-between flex-col">
                 <div className="flex justify-between">

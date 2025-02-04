@@ -8,7 +8,7 @@ import Header from "../components/dashboard/Header";
 import WithdrawalCard from "../components/ui/WithdrawalCard";
 import { RiMenuFoldLine } from "react-icons/ri";
 import WithdrawDetails from "../components/withdrawals/WithdrawDetails";
-import WithdrawalPayment from "../components/withdrawals/WithdrawalPayment";
+// import WithdrawalPayment from "../components/withdrawals/WithdrawalPayment";
 
 
 

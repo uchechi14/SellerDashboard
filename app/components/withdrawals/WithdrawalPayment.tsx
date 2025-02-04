@@ -35,16 +35,15 @@ const WithdrawalPayment: React.FC<WithdrawalProps> = ({handleSubmit, onBack}) =>
     return(
 
         <>
-           <div className={`w-[35%] rounded-[20px] bg-white flex justify-center items-center h-[400px] ${currentStep === 'details' ? 'flex' : 'hidden' }`} >
-                <div className="w-[90%]">
-                    <div className='flex justify-between items-center'>
+           <div className={`w-[30rem] max-w-[90%] max-h-[90vh] rounded-[20px] px-[2rem] bg-white flex justify-center items-center  py-[1.5rem] flex-col   ${currentStep === 'details' ? 'flex' : 'hidden' }`} >
+                    <div className='flex justify-between items-center w-full'>
                         <div className={`size-[36px] rounded-full border border-[#F1F1F1] cursor-pointer flex justify-center items-center`} onClick={handleBack}><IoIosArrowBack /></div>
                     <p className="text-[18px] font-bold text-center ">Cash Withdrawal</p>
                     <div className={`size-[36px] rounded-full border border-[#F1F1F1] cursor-pointer flex justify-center items-center`} onClick={handleSubmit}>
                     <TbLetterX />
                     </div>
                     </div>
-                    <div className="mt-4">
+                    <div className="mt-4 w-full">
                         <div className='w-full'>  
                             <input className="bg-[#F3F3F3] w-full py-[13px] text-[12px] text-black rounded-[15px] outline-none pl-[13px]" placeholder='Enter amount'/>
                         </div>
@@ -61,7 +60,6 @@ const WithdrawalPayment: React.FC<WithdrawalProps> = ({handleSubmit, onBack}) =>
                         </div>
                        </div>
                        <button className='w-full bg-[#0171E3] rounded-full py-[10px] text-[15px] text-white mt-11 ' onClick={handleContinue}>Continue</button>
-                    </div>
                     </div>
                 </div>
 

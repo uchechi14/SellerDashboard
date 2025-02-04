@@ -35,7 +35,7 @@ const WithdrawalSuccessful: React.FC<WithdrawalProps> = ({handleSubmit, onBack})
     return(
 
         <>
-           <div className="w-[35%] rounded-[20px] bg-white flex justify-center items-center h-[400px]">
+           <div className={`w-[40%] tablet:w-[75%] rounded-[20px] bg-white flex justify-center items-center h-[400px] ${currentStep === 'details' ? 'flex' : 'hidden' }`}>
                 <div className="w-[90%]">
                     <div className='flex justify-between items-center'>
                         <div className={`size-[36px] rounded-full border border-[#F1F1F1] cursor-pointer flex justify-center items-center`} onClick={handleBack}><IoIosArrowBack /></div>

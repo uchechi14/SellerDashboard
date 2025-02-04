@@ -1,13 +1,13 @@
 'use client'
 import BaseLayout from "@/app/BaseLayout";
 import Header from "@/app/components/dashboard/Header";
-import ImageInput from "@/app/components/products/ImageInput";
 import ProductUploaded from "@/app/components/products/ProductUploaded";
 import Link from "next/link";
 import {  useState } from "react";
 import { BiSolidLeftArrow } from "react-icons/bi";
 import { LuPlus } from "react-icons/lu";
-import {  CirclePicker  } from 'react-color'
+import ColorPicker from "@/app/components/products/ColorPicker";
+import {  CirclePicker  } from "react-color"
 
 
 
@@ -28,8 +28,12 @@ export default function UploadProducts () {
    
    const customColors= ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF"]
 
+   console.log(customColors)
+   console.log(inputValue)
+   console.log(selectColor)
 
-   const handleInputChange = (e) => {
+
+   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const color = e.target.value.trim().toLowerCase()
     setInputValue(color)
 
@@ -38,18 +42,22 @@ export default function UploadProducts () {
     }
    }
 
-   const isValidColor = (color) => {
+   const isValidColor = (color: string): boolean => {
     const s = new Option().style;
     s.color = color;
     return !!s.color;
-  };
+};
   
   
-  
-   const handleChangeColor = (color) =>{
+interface ColorResult {
+    hex: string;
+    // other properties that might come from your color picker
+}
+
+const handleChangeColor = (color: ColorResult) => {
     setSelectColor(color.hex)
     setInputValue(color.hex)
-   }
+}
 
  
     return(
@@ -106,87 +114,33 @@ export default function UploadProducts () {
 
                     <div className="mt-5">
                     <p className="text-[18px] text-black opacity-[50%] mt-2">Add display image</p>
-                    <label className="size-[300px] bg-[#E9E9E9] rounded-[20px] block " htmlFor="upload-button"> 
+                    <label className="size-[300px] bg-[#E9E9E9] rounded-[20px] block mobile:w-full" htmlFor="upload-button"> 
                     <input
                         type="file"
                         id="upload-button"
                         className="hidden" />
-                        <div className="relative top-[130px] left-[140px] text-[25px]">
+                        <div className="flex justify-center items-center relative top-[45%] text-[25px] ">
                         <LuPlus />
                         </div>
                     </label>
+                      <CirclePicker  
+                        colors={customColors}
+                        circleSize={36}
+                        circleSpacing={10}
+                        className="mt-4" color = {selectColor} onChangeComplete={handleChangeColor} />
+                        <input type="text" value={inputValue} onChange={handleInputChange} className="w-[170px] mt-2 border-2 outline-none px-2 rounded-md py-1 border-[#E9E9E9]" />
+                        <p>Selected Color: <span style={{ color: selectColor }}>{selectColor}</span></p>
                     </div>
 
                     <div className="mt-5">
                     <p className="text-[18px] text-black opacity-[50%] mt-2">Add support images</p>
                     <div className=" w-full flex flex-wrap gap-3 ">
-                    <div className="flex flex-col ">
-                    <ImageInput/>
-                    <CirclePicker 
-                    width={150}
-                    colors={customColors}
-                    circleSize={36}
-                      circleSpacing={10}
-                    className="mt-4" color = {selectColor} onChangeComplete={handleChangeColor} />
-                    <input type="text" value={inputValue} onChange={handleInputChange} className="w-[170px] mt-2 border-2 outline-none px-2 rounded-md py-1 border-[#E9E9E9]" />
-                    <p>Selected Color: <span style={{ color: selectColor }}>{selectColor}</span></p>
-                    </div>
-                    <div className="flex flex-col ">
-                    <ImageInput/>
-                    <CirclePicker 
-                    width={150}
-                    colors={customColors}
-                    circleSize={36}
-                    circleSpacing={10}
-                    className="mt-4" color = {selectColor} onChangeComplete={handleChangeColor} />
-                    <input type="text" value={inputValue} onChange={handleInputChange} className="w-[170px] mt-2 border-2 outline-none px-2 rounded-md py-1 border-[#E9E9E9]" />
-                    <p>Selected Color: <span style={{ color: selectColor }}>{selectColor}</span></p>
-                    </div>
-                    <div className="flex flex-col ">
-                    <ImageInput/>
-                    <CirclePicker 
-                    width={150}
-                    colors={customColors}
-                    circleSize={36}
-                      circleSpacing={10}
-                    className="mt-4" color = {selectColor} onChangeComplete={handleChangeColor} />
-                    <input type="text" value={inputValue} onChange={handleInputChange} className="w-[170px] mt-2 border-2 outline-none px-2 rounded-md py-1 border-[#E9E9E9]" />
-                    <p>Selected Color: <span style={{ color: selectColor }}>{selectColor}</span></p>
-                    </div>
-                    <div className="flex flex-col ">
-                    <ImageInput/>
-                    <CirclePicker 
-                    width={150}
-                    colors={customColors}
-                    circleSize={36}
-                      circleSpacing={10}
-                    className="mt-4" color = {selectColor} onChangeComplete={handleChangeColor} />
-                    <input type="text" value={inputValue} onChange={handleInputChange} className="w-[170px] mt-2 border-2 outline-none px-2 rounded-md py-1 border-[#E9E9E9]" />
-                    <p>Selected Color: <span style={{ color: selectColor }}>{selectColor}</span></p>
-                    </div>
-                    <div className="flex flex-col ">
-                    <ImageInput/>
-                    <CirclePicker 
-                    width={150}
-                    colors={customColors}
-                    circleSize={36}
-                      circleSpacing={10}
-                    className="mt-4" color = {selectColor} onChangeComplete={handleChangeColor} />
-                    <input type="text" value={inputValue} onChange={handleInputChange} className="w-[170px] mt-2 border-2 outline-none px-2 rounded-md py-1 border-[#E9E9E9]" />
-                    <p>Selected Color: <span style={{ color: selectColor }}>{selectColor}</span></p>
-                    </div>
-                    <div className="flex flex-col ">
-                    <ImageInput/>
-                    <CirclePicker 
-                    width={150}
-                    colors={customColors}
-                    circleSize={36}
-                      circleSpacing={10}
-                    className="mt-4" color = {selectColor} onChangeComplete={handleChangeColor} />
-                    <input type="text" value={inputValue} onChange={handleInputChange} className="w-[170px] mt-2 border-2 outline-none px-2 rounded-md py-1 border-[#E9E9E9]" />
-                    <p>Selected Color: <span style={{ color: selectColor }}>{selectColor}</span></p>
-                    </div>
-                   
+                    <ColorPicker/>
+                    <ColorPicker/>
+                    <ColorPicker/>
+                    <ColorPicker/>
+                    <ColorPicker/>
+                    <ColorPicker/>
                   
                     </div>
                     
@@ -196,7 +150,7 @@ export default function UploadProducts () {
 
                     <div className="mt-7">
                     <p className="text-[18px] text-black opacity-[50%] mt-5">Add sizes</p>
-                     <div className="flex gap-3 mt-5">
+                     <div className="flex gap-3 mt-5 flex-wrap">
                         <div className="border border-black px-3 py-[2px] rounded-full">Small</div>
                         <div className="border border-black px-3 py-[2px] rounded-full">Medium</div>
                         <div className="border border-black px-3 py-[2px] rounded-full">Large</div>
@@ -220,8 +174,8 @@ export default function UploadProducts () {
                         </div>
                     </div>
                     <div className="flex justify-end gap-3">
-                        <button className="px-[13px] text-white font-Helevetica py-[7px] bg-[#0171E3] text-[20px] rounded-full" type="submit">Upload</button>
-                        <button className="px-[13px] py-[7px] font-Helevetica bg-[#000000] text-[20px] text-white rounded-full" >Archive</button>
+                        <button className="px-[13px] text-white py-[7px] bg-[#0171E3] text-[16px] rounded-full" type="submit">Upload</button>
+                        <button className="px-[13px] py-[7px] bg-[#000000] text-[16px] text-white rounded-full" >Archive</button>
                     </div>
 
 

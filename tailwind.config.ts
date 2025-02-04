@@ -38,7 +38,7 @@ export default {
       fontSize: {
         reponsiveText: "clamp(12px,2vw,14px)",
         reponsiveText2: "clamp(17px,2vw,24px)",
-        reponsiveText3: "clamp(13px,2vw,17px)",
+        reponsiveText3: "clamp(13px,2vw,16px)",
       },
 
     },

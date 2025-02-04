@@ -20,9 +20,7 @@ const WithdrawalReceipt: React.FC<WithdrawalProps> = ({handleSubmit, onBack}) =>
 
      const [currentStep, setCurrentStep] = useState<'details' | 'payment'>('details')
 
-     const handleContinue = () => {
-        setCurrentStep('payment')
-    }
+  
     
     const handleBack = () => {
         if(currentStep === 'payment'){
@@ -37,7 +35,7 @@ const WithdrawalReceipt: React.FC<WithdrawalProps> = ({handleSubmit, onBack}) =>
     return(
 
         <>
-           <div className={`w-[35%] rounded-[20px] bg-white flex justify-center items-center h-[400px] ${currentStep === 'details' ? 'flex' : 'hidden' }`} >
+           <div className={`w-[40%] tablet:w-[75%] rounded-[20px] bg-white flex justify-center items-center h-[400px] ${currentStep === 'details' ? 'flex' : 'hidden' }`} >
                 <div className="w-[90%]">
                     <div className='flex justify-between items-center'>
                         <div className={`size-[36px] rounded-full border border-[#F1F1F1] cursor-pointer flex justify-center items-center`} onClick={handleBack}><IoIosArrowBack /></div>
@@ -81,7 +79,7 @@ const WithdrawalReceipt: React.FC<WithdrawalProps> = ({handleSubmit, onBack}) =>
                             <div className="cursor-pointer"><RiDeleteBin5Fill /></div>
                         </div>
                        </div>
-                       <button className='w-full bg-[#0171E3] rounded-full py-[10px] text-[15px] text-white mt-8 ' onClick={handleContinue}>Continue</button>
+                       <button className='w-full bg-[#0171E3] rounded-full py-[10px] text-[15px] text-white mt-8 ' onClick={handleSubmit}>Continue</button>
                     </div>
                     </div>
                 </div>
