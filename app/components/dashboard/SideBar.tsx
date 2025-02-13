@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 const sideBarItems = [
   {
     name: "Dashboard",
-    href: "/",
+    href: "/dashboard",
     icon: RxDashboard,
   },
   {
