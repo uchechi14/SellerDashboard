@@ -9,7 +9,7 @@ export default function BaseLayout({
     <div className="flex justify-center min-h-screen bg-[#F1EFE8]  w-full ">
       <div className="w-full relative lg:pl-[225px]   flex ">
         <SideBar />
-        <main className="w-full  flex-1 lg:px-[2rem] px-[4%]  ">
+        <main className="w-full  flex-1 lg:px-[2rem] px-[4%] pb-5 ">
           {children}
         </main>
       </div>

@@ -83,14 +83,14 @@ export default function Header({ title, note }: headerItems) {
           </div>
         </div>
       ) : (
-        <div className="flex items-center gap-3 tablet:mt-5 tablet:w-full tablet:justify-between mobile:flex">
+        <div className={`flex items-center gap-3 tablet:mt-5 tablet:w-full tablet:justify-between mobile:flex $`}>
           <div className="flex justify-center items-center mobile:hidden tablet:w-[50%]">
             <p className="relative left-7">
               <IoSearch />
             </p>
             <input
               placeholder="Search"
-              className="w-[100%] pl-8 outline-none py-[10px] rounded-[21px] bg-white text-[12px] tablet:w-full"
+              className={`w-[100%] pl-8 outline-none transition ease-in-out duration-300 py-[10px] rounded-[21px] bg-white text-[12px] tablet:w-full ${searchOpen ?"translate-x-0" : "-translate-x-full"}`}
             />
           </div>
           <div className="w-[150px] rounded-[30px] py-[5px] gap-1 bg-white flex items-center justify-center">

@@ -7,10 +7,6 @@ type props = {
 const SideBarAccount = ({ step }: props) => {
   const accountArray = [
     {
-      text: "Personal details",
-      step: "1",
-    },
-    {
       text: "Brand details",
       step: "2",
     },
@@ -25,7 +21,7 @@ const SideBarAccount = ({ step }: props) => {
   ];
 
   return (
-    <div className="md:w-[400px] w-full md:h-[95vh] py-[1rem] fixed md:top-[50%] top-0 md:translate-y-[-50%] left-0 md:left-[1rem]  overflow-hidden px-[1rem] z-[10] md:px-[2rem] bg-[#E2E4FF] justify-center md:rounded-[20px] flex-col flex ">
+    <div className="md:w-[400px] z-50 w-full md:h-[95vh] py-[1rem] fixed md:top-[50%] top-0 md:translate-y-[-50%] left-0 md:left-[1rem]  overflow-hidden px-[1rem]  md:px-[2rem] bg-[#E2E4FF] justify-center md:rounded-[20px] flex-col flex ">
       <div className=" gap-[1rem] flex overflow-y-auto flex-col">
         <div className="">
           <h1 className="md:text-[20px] font-Helevetica">CUBBY</h1>
@@ -34,7 +30,10 @@ const SideBarAccount = ({ step }: props) => {
         <div>
           <div className="flex md:justify-start justify-between md:flex-col">
             {accountArray.map((item, index) => (
-              <div key={index} className="flex md:flex-row  w-full md:text-base text-sm  md:items-start items-center flex-col  gap-2 justify-between md:w-fit">
+              <div
+                key={index}
+                className="flex md:flex-row  w-full md:text-base text-sm  md:items-start items-center flex-col  gap-2 justify-between md:w-fit"
+              >
                 <div className="flex md:flex-col items-center gap-1">
                   <div
                     style={{ transition: "0.4s linear" }}
@@ -57,7 +56,9 @@ const SideBarAccount = ({ step }: props) => {
                     ></div>
                   )}
                 </div>
-                <p className="md:text-base text-xs text-center md:text-start md:mt-[12px]">{item.text}</p>
+                <p className="md:text-base text-xs text-center md:text-start md:mt-[12px]">
+                  {item.text}
+                </p>
               </div>
             ))}
           </div>
