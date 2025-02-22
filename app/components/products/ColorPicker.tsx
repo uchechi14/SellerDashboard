@@ -1,58 +1,84 @@
-import { useState } from "react"
-import ImageInput from "./ImageInput"
-import {  CirclePicker  } from "react-color"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+import { supabase } from "@/app/utils/superBaseClient";
+import { useState, useRef, useEffect } from "react";
 
+const ColorDropdown = () => {
+  const [colors, setColors] = useState<any>([]);
+  const [searchColor, setSearchColor] = useState("");
+  const [selectedColor, setSelectedColor] = useState("Select a color");
+  const [isColorDropdownOpen, setIsColorDropdownOpen] = useState(false);
+  const colorDropdownRef = useRef(null);
 
-export default function ColorPicker () {
-    
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const { data, error } = await supabase.from("cubby_color").select("*");
 
-      const [inputValue, setInputValue] = useState<string>("")
-       const [selectColor, setSelectColor] = useState<string>('#fff')
-       
-       const customColors= ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF"]
-    
-    
-       const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const color = e.target.value.trim().toLowerCase()
-        setInputValue(color)
-    
-        if(isValidColor(color)) {
-            setSelectColor(color)
-        }
-       }
-    
-       const isValidColor = (color: string): boolean => {
-        const s = new Option().style;
-        s.color = color;
-        return !!s.color;
+      if (error) {
+        console.error("Error fetching colors:", error);
+      }
+      console.log(data);
+
+      setColors(data);
     };
-      
-      
-    interface ColorResult {
-        hex: string;
-        // other properties that might come from your color picker
-    }
-    
-    const handleChangeColor = (color: ColorResult) => {
-        setSelectColor(color.hex)
-        setInputValue(color.hex)
-    }
 
+    fetchCategories();
+  }, []);
 
-    return(
-        <>
-        <div className="flex flex-col ">
-          <ImageInput/>
-          <CirclePicker 
+  // Filter Colors for Search
+  const filteredColors = colors.filter((color: any) =>
+    color.color_name.toLowerCase().includes(searchColor.toLowerCase())
+  );
 
-                                colors={customColors}
-                                circleSize={36}
-                                circleSpacing={10}
-                                className="mt-4" color = {selectColor} onChangeComplete={handleChangeColor} />
-                                <input type="text" value={inputValue} onChange={handleInputChange} className="w-[170px] mt-2 border-2 outline-none px-2 rounded-md py-1 border-[#E9E9E9]" />
-                                <p>Selected Color: <span style={{ color: selectColor }}>{selectColor}</span></p>
-                                
-                                </div>                 
-                            </>
-    )
-}
+  // Handle Color Selection
+  const handleColorSelect = (color: any) => {
+    setSelectedColor(color);
+    setIsColorDropdownOpen(false);
+    setSearchColor("");
+  };
+
+  return (
+    <div className="mt-5 relative">
+      <p className="text-[18px] text-black opacity-[50%] mt-2">Select Color</p>
+      <button
+        className="w-full p-3 border rounded-lg bg-[#e0e0e0] text-black text-left"
+        onClick={() => setIsColorDropdownOpen(!isColorDropdownOpen)}
+        type="button"
+      >
+        {selectedColor}
+      </button>
+
+      {isColorDropdownOpen && (
+        <div
+          ref={colorDropdownRef}
+          className="absolute w-full mt-2 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto z-10"
+        >
+          <input
+            type="text"
+            placeholder="Search color..."
+            value={searchColor}
+            onChange={(e) => setSearchColor(e.target.value)}
+            className="w-full p-2 border-b rounded-t-md text-black"
+          />
+          <ul className="max-h-40 overflow-y-auto">
+            {filteredColors.length > 0 ? (
+              filteredColors.map((color: any) => (
+                <li
+                  key={color.id}
+                  onClick={() => handleColorSelect(color.color_name)}
+                  className="p-3 cursor-pointer hover:bg-gray-200"
+                >
+                  {color.color_name}
+                </li>
+              ))
+            ) : (
+              <li className="p-3 text-gray-500">No color found</li>
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ColorDropdown;

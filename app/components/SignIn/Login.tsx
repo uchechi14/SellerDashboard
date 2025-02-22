@@ -10,17 +10,18 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true); // Initialize loading as true
+  const [login_is_loading, setlogin_is_loading] = useState(false); // Initialize loading as true
 
   const router = useRouter();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
+    setlogin_is_loading(true);
 
     if (!email || !password) {
       setError("Email and password are required.");
-      setLoading(false);
+      setlogin_is_loading(false);
       return;
     }
 
@@ -36,35 +37,67 @@ const Login = () => {
       console.log(email);
       console.log(password);
 
-      // Redirect or save token
-      router.push("/createAccount");
+      const { data: id } = await supabase.auth.getSession();
+      const session = id.session;
+
+      const userId = session?.user.id;
+      const { data: sellerData, error: error_after } = await supabase
+        .from("seller")
+        .select("*")
+        .eq("user_id", userId);
+
+      if (error_after) {
+        console.error("error_after fetching seller data:", error_after);
+        return;
+      }
+
+      if (sellerData) {
+        router.push("/dashboard");
+      } else {
+        router.push("/createAccount");
+      }
     } catch (err: any) {
       setError(err.message);
     } finally {
-      setLoading(false);
+      // setlogin_is_loading(false);
     }
   };
 
-  const checkUser = async () => {
+  const checkUserSession = async () => {
     try {
       const { data } = await supabase.auth.getSession();
-      const session_data = data.session;
-      console.log(data);
-      if (session_data) {
-        router.push("/createAccount");
+      const session = data.session;
+
+      if (!session) {
+        // router.push("/login");
+        setLoading(false);
+        return;
+      }
+
+      const userId = session.user.id;
+      const { data: sellerData, error } = await supabase
+        .from("seller")
+        .select("*")
+        .eq("user_id", userId);
+
+      if (error) {
+        console.error("Error fetching seller data:", error);
+        return;
+      }
+
+      if (sellerData) {
+        router.push("/dashboard");
       } else {
-        setLoading(false); // Set loading to false after check
+        router.push("/createAccount");
       }
     } catch (error) {
-      console.error("Error checking user:", error);
-    } finally {
+      console.error("Error checking user session:", error);
     }
   };
 
   useEffect(() => {
-    checkUser();
+    checkUserSession();
   }, []);
-
   if (loading) {
     return (
       <div className="flex justify-center items-center w-full h-[100vh] bg-[#F1EFE8]">
@@ -104,11 +137,11 @@ const Login = () => {
           />
         </div>
         <button
-          className="w-full mt-[1rem] border outline-none text-white px-[10px] rounded-full h-[3.5rem] focus:border-opacity-70 border-opacity-30 transition duration-300 bg-[#050505]"
+          className="w-full mt-[1rem] flex justify-center items-center border outline-none text-white px-[10px] rounded-full h-[3.5rem] focus:border-opacity-70 border-opacity-30 transition duration-300 bg-[#050505]"
           type="submit"
           disabled={loading}
         >
-          {loading ? <Spinner bg={"white"} /> : "Login"}
+          {login_is_loading ? <Spinner bg={"white"} /> : "Login"}
         </button>
         {error && <p className="text-red-500">{error}</p>}
       </div>

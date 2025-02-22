@@ -28,7 +28,7 @@ const Mobile_header = ({ sideBarItems, setSideOpen }: any) => {
         }}
         className={`  ${
           start_anime ? "bg-opacity-70" : "bg-opacity-0"
-        } fixed top-0 left-0 h-[100vh] bg-black w-full z-[1000]`}
+        } fixed top-0 left-0 h-[100vh] bg-black w-full z-[1000] lg:hidden`}
       >
         <div
           onClick={(e) => {
@@ -37,11 +37,11 @@ const Mobile_header = ({ sideBarItems, setSideOpen }: any) => {
           style={{
             transition: "0.4s linear",
           }}
-          className={`fixed top-0 w-[80%] h-full left-0 bg-white shadow-lg ease-in-out z-50 ${
+          className={`fixed top-0 w-[80%] h-full left-0  bg-white  shadow-lg ease-in-out z-50 ${
             start_anime ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-          <div className="mt-6 ml-[10px]">
+          <div className="mt-6 ml-[10px] ">
             <ul className="flex flex-col gap-[1rem]">
               {sideBarItems.map((item: any, index: any) => (
                 <Link

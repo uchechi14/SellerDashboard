@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --background: #F1EFE8;
+  --background: #f1efe8;
   --foreground: #171717;
 }
 
@@ -15,12 +15,18 @@
 }
 
 body {
-  color: 'black';
+  color: "black";
   background: "#F1EFE8";
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
 .border2 {
   border: 1px solid black;
+}
+
+/* Remove arrows in Chrome, Safari, Edge */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
