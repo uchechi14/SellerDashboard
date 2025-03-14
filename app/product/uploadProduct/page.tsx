@@ -12,6 +12,7 @@ import { supabase } from "@/app/utils/superBaseClient";
 import { LuPlus } from "react-icons/lu";
 import TextEditor from "@/app/components/generalComponent/TextEditor";
 import { s3 } from "@/aws-config";
+import UploadProductModal from "@/app/components/products/UploadProductModal";
 
 const UploadProducts = () => {
   // const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -19,6 +20,9 @@ const UploadProducts = () => {
   // const handleSubmit = (): void => {
   //   setIsOpen(!isOpen);
   // };
+
+  const [uploadProgress, setUploadProgress] = useState<any>(0);
+  const [progress_word, setprogress_word] = useState<any>("");
   const [categories, setCategories] = useState<any>([]);
   const [colors, setColors] = useState<any>([]);
   const [sizes, setSizes] = useState<any>([]);
@@ -98,6 +102,10 @@ const UploadProducts = () => {
     setIsUploading(true);
     if (!file) return null;
     console.log(`Uploading ${fileKey}...`);
+    setIsUploading(true);
+
+    // const fileName = file.name;
+    // setUploadProgress(fileName);
 
     if (!process.env.NEXT_PUBLIC_S3_BUCKET_NAME) {
       throw new Error("S3 bucket name is not defined");
@@ -111,6 +119,18 @@ const UploadProducts = () => {
     };
 
     const upload = s3.upload(params);
+
+    upload.on("httpUploadProgress", (progress) => {
+      const percent = Math.round((progress.loaded / progress.total) * 100);
+      console.log(
+        `${fileKey} Upload Progress: ${Math.round(
+          (progress.loaded / progress.total) * 100
+        )}%`
+      );
+      setUploadProgress(percent);
+      setprogress_word(fileKey);
+    });
+
     const { Location } = await upload.promise();
     console.log(`${fileKey} Uploaded:`, Location);
     return Location;
@@ -118,6 +138,9 @@ const UploadProducts = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    setUploadProgress([]);
+    setIsUploading(true);
     console.log("Filtering product boxes for images...", imageState);
     console.log("Image details", formState);
     console.log("whatIsInTheBox", whatIsInTheBox);
@@ -137,11 +160,13 @@ const UploadProducts = () => {
       })
     );
 
+    setIsUploading(false);
+
     console.log("Filtered and uploaded product boxes:", uploadedBoxes);
 
     // Generate product slug from the name
     const productSlug = generateSlug(formState.name);
-    console.log("ttsy:", productSlug);
+    console.log("ttsy:", formState);
 
     // Store data in Supabase
     const { data, error } = await supabase
@@ -157,7 +182,6 @@ const UploadProducts = () => {
           // images: uploadedBoxes.map((box) => box.image), // ✅ Store only image URLs
           whats_in_it: whatIsInTheBox,
           extra_note: extraInformation,
-          created_at: new Date().toISOString(),
         },
       ])
       .select("id") // ✅ Retrieve the UUID (id) of the inserted row
@@ -165,10 +189,60 @@ const UploadProducts = () => {
 
     if (error) {
       console.error("Error inserting product into Supabase:", error);
-    } else {
-      const productUUID = data.id; // ✅ This is the UUID of the inserted product
-      console.log("Product successfully stored in Supabase:", data);
-      console.log("Product UUID:", productUUID); // ✅ Logging the UUID
+      return;
+    }
+    const productUUID = data.id; // ✅ This is the UUID of the inserted product
+    console.log("Product successfully stored in Supabase:", data);
+    console.log("Product UUID:", productUUID); // ✅ Logging the UUID
+
+    for (const box of imageState.productBoxes) {
+      console.log("Product UUID:", box.color); // ✅ Logging the UUID
+
+      // Insert image details into Supabase
+      const { data: imageData, error: imageError } = await supabase
+        .from("images") // Table for product images
+        .insert([
+          {
+            product_id: productUUID,
+            image_url: box.image, // Assuming this holds the image URL
+            color: box.color || null, // Color or null
+            is_color: box.readAsText ? false : true, // Check if color is active
+            is_default: false, // Define default behavior (modify as needed)
+          },
+        ])
+        .select("id") // Fetch the inserted row ID
+        .single();
+
+      if (imageError) {
+        console.error("Error inserting product image:", imageError);
+        continue; // Skip to the next image if there's an error
+      }
+
+      const imageId = await imageData.id; // Get inserted image ID
+      console.log("Inserted image ID:", imageId);
+
+      // Check if sizes exist for the image
+      if (box.size && box.size.length > 0) {
+        console.log("I size.size:", box.size, productUUID, imageId);
+
+        const sizeEntries = box.size.map((size) => ({
+          image_id: imageId, // Link to inserted image
+          size: size.size, // Assuming 'size' is the size ID
+          stock: size.input ? parseInt(size.input, 10) : 0, // Convert stock input to integer
+          product_id: productUUID,
+        }));
+
+        // Insert size details into Supabase
+        const { error: sizeError } = await supabase
+          .from("sizes") // Table for size stocks
+          .insert(sizeEntries);
+
+        if (sizeError) {
+          console.error("Error inserting sizes for image:", imageId, sizeError);
+        } else {
+          console.log("Sizes successfully stored for image:", imageId);
+        }
+      }
     }
   };
 
@@ -249,6 +323,12 @@ const UploadProducts = () => {
 
   return (
     <BaseLayout>
+      <UploadProductModal
+        progress={uploadProgress}
+        progress_word={progress_word}
+        isUploading={isUploading}
+      />
+      ;
       <div>
         <Header
           title="Upload Products"
@@ -324,8 +404,8 @@ const UploadProducts = () => {
                     onChange={handleInputChange}
                     className="w-full bg-[#e0e0e0] outline-none rounded-[15px] py-[15px] px-[20px]  text-black opacity-[50%]"
                   >
-                    <option className=" ">MALE</option>
-                    <option>FEMALE</option>
+                    <option value="Male">MALE</option>
+                    <option value="Female">FEMALE</option>
                   </select>
                 </div>
               </div>
@@ -365,7 +445,7 @@ const UploadProducts = () => {
                       {imageState.productBoxes[index - 1]?.image ? (
                         <img
                           src={URL.createObjectURL(
-                            imageState.productBoxes[index - 1]?.image
+                            imageState?.productBoxes[index - 1]?.image
                           )}
                           alt="Preview"
                           className="absolute inset-0 object-cover w-full h-full rounded-[20px]"
@@ -407,11 +487,11 @@ const UploadProducts = () => {
                             .filter(
                               (size: any) =>
                                 !imageState.productBoxes[index - 1]?.size.some(
-                                  (s) => s.size === size.sizes
+                                  (s) => s.size === size.id
                                 )
                             )
                             .map((size: any) => (
-                              <option key={size.id} value={size.sizes}>
+                              <option key={size.id} value={size.id}>
                                 {size.sizes}
                               </option>
                             ))}
