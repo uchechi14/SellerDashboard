@@ -321,6 +321,8 @@ const UploadProducts = () => {
     });
   };
 
+  console.log(sizes, "mtysizes");
+
   return (
     <BaseLayout>
       <UploadProductModal
@@ -491,7 +493,7 @@ const UploadProducts = () => {
                                 )
                             )
                             .map((size: any) => (
-                              <option key={size.id} value={size.id}>
+                              <option key={size.id} value={size.sizes}>
                                 {size.sizes}
                               </option>
                             ))}
@@ -507,7 +509,7 @@ const UploadProducts = () => {
                                 key={idx}
                                 className=" bg-[#E9E9E9] px-[1rem] py-[0.5rem] rounded-[5px] flex gap-[0.4rem] text-xs items-center"
                               >
-                                <p className="text-xs"> {size} </p>{" "}
+                                <p className="text-xs"> {size}</p>{" "}
                                 {/* ✅ Now properly accessing `size` */}
                                 <input
                                   type="number"
