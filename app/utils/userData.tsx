@@ -53,17 +53,17 @@ export const UserProvider = ({ children }: any) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { data }: any = await supabase.auth.getSession();
       const session_data = data.session?.user;
-      console.log(data);
+      // console.log(data);
       // console.log(session_data);
       if (session_data?.user_metadata) {
-        console.log(session_data);
+        console.log(session_data.id, "this is my seeson");
         setUser({
           name: session_data?.user_metadata.lastName,
           userId: session_data?.id,
           email: session_data?.email,
         });
       } else {
-        // router.push('https://cubby-fawn.vercel.app/login')
+        router.push("https://cubby-fawn.vercel.app/login");
         setUser({ userId: "", name: "", email: "" });
       }
     } catch (error) {
