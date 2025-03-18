@@ -3,15 +3,12 @@
 import React, { useState } from "react";
 // import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
-import ReactQuill from "react-quill-new";
+import dynamic from "next/dynamic";
 
-// const QuillEditor = dynamic(() => import("react-quill"), { ssr: false });
-
-// const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 const TextEditor = ({ placeholder, value, setfunc }: any) => {
   const [content, setContent] = useState("");
-  //   const quill = new Quill("#editor");
 
   const quillModules = {
     toolbar: [
@@ -34,7 +31,7 @@ const TextEditor = ({ placeholder, value, setfunc }: any) => {
     "strike",
     "blockquote",
     "list",
-    "bullet",
+    // "bullet",
     "link",
     "image",
     "align",

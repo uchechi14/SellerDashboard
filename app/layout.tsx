@@ -1,7 +1,7 @@
 import { mediaSans, Helevetica } from "./utils/Font";
 import "./globals.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import { UserProvider } from "./utils/userData";
-
 
 export default function RootLayout({
   children,
@@ -10,11 +10,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${mediaSans.variable} ${Helevetica.variable}`}
-      >
-        <UserProvider>
-        {children}</UserProvider>
+      <body className={`${mediaSans.variable} ${Helevetica.variable}`}>
+        <UserProvider>{children}</UserProvider>
       </body>
     </html>
   );

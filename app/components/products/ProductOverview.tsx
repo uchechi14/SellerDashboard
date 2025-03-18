@@ -22,6 +22,7 @@ const ProductOverview = ({ slug }: { slug: string }) => {
         .eq("slug", slug)
         .single();
 
+      console.log(data);
       if (error) {
         console.error("Error fetching product:", error);
       } else {
@@ -82,7 +83,7 @@ const ProductOverview = ({ slug }: { slug: string }) => {
                   key={i}
                   className="size-[70px] bg-black/10 rounded-[10px] overflow-hidden"
                 >
-                  <img
+                  <Image
                     src={img.image_url}
                     alt="support-image"
                     className="w-full object-cover"

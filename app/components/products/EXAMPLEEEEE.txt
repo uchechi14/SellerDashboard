@@ -1,0 +1,147 @@
+const uploadFile = async (
+  file: any,
+  fileKey: any,
+  productUUID: string,
+  box: any
+) => {
+  console.log(file);
+  if (!file) return null;
+
+  console.log(`Uploading ${fileKey}...`);
+  setIsUploading(true);
+
+  if (!process.env.NEXT_PUBLIC_S3_BUCKET_NAME) {
+    throw new Error("S3 bucket name is not defined");
+  }
+
+  const params = {
+    Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
+    Key: `uploads/${Date.now()}_${file.name}`,
+    Body: file,
+    ContentType: file.type,
+  };
+
+  const upload = s3.upload(params);
+
+  upload.on("httpUploadProgress", (progress) => {
+    const percent = Math.round((progress.loaded / progress.total) * 100);
+    console.log(`${fileKey} Upload Progress: ${percent}%`);
+    setUploadProgress(percent);
+    setprogress_word(fileKey);
+  });
+
+  const { Location } = await upload.promise();
+  console.log(`${fileKey} Uploaded:`, Location);
+  const isFirstImage = box === imageState.productBoxes[0]; // ✅ Check if this is the first image
+
+  // ✅ Immediately Insert Image into Supabase
+  const { data: imageData, error: imageError } = await supabase
+    .from("images") // Table for product images
+    .insert([
+      {
+        product_id: productUUID,
+        image_url: Location, // ✅ Use the uploaded image URL
+        color: box.color || null, // ✅ Assign color
+        is_color: box.readAsText ? false : true,
+        is_default: isFirstImage, // ✅ Set first image as default
+      },
+    ])
+    .select("id") // Fetch the inserted row ID
+    .single();
+
+  if (imageError) {
+    console.error("Error inserting product image:", imageError);
+    return null;
+  }
+
+  const imageId = imageData.id; // ✅ Get inserted image ID
+  console.log("Inserted image ID:", imageId);
+
+  // ✅ Insert Sizes if Available
+  if (box.size && box.size.length > 0) {
+    console.log(
+      "Inserting sizes for image:",
+      box.size,
+      box.size,
+      productUUID,
+      imageId
+    );
+
+    const sizeEntries = box.size.map((size: any) => ({
+      image_id: imageId, // ✅ Link to inserted image
+      size: sizes.find((s: any) => s.sizes === size.size)?.id || null, // ✅ Get the correct size ID
+      stock: size.input ? parseInt(size.input, 10) : 0, // ✅ Convert stock input to integer
+      product_id: productUUID,
+    }));
+
+    // Insert size details into Supabase
+    const { error: sizeError } = await supabase
+      .from("sizes") // Table for size stocks
+      .insert(sizeEntries);
+
+    if (sizeError) {
+      console.error("Error inserting sizes for image:", imageId, sizeError);
+    } else {
+      console.log("Sizes successfully stored for image:", imageId);
+    }
+  }
+
+  return Location; // ✅ Return the uploaded image URL
+};
+
+const handleSubmit = async (e: any) => {
+  e.preventDefault();
+
+  setUploadProgress([]);
+  setIsUploading(true);
+  console.log("Filtering product boxes for images...", imageState);
+  console.log("Image details", formState);
+  console.log("whatIsInTheBox", whatIsInTheBox);
+  console.log("extraInformation", extraInformation);
+
+  const filteredBoxes = imageState.productBoxes.filter(
+    (box) => box.image !== null
+  );
+
+  // ✅ Insert Product First
+  const productSlug = generateSlug(formState.name);
+
+  const { data, error } = await supabase
+    .from("product")
+    .insert([
+      {
+        name: formState.name,
+        slug: productSlug,
+        price: formState.price,
+        category: formState.category,
+        gender: formState.gender,
+        description: formState.description,
+        seller_id: user.userId,
+        whats_in_it: whatIsInTheBox,
+        extra_note: extraInformation,
+      },
+    ])
+    .select("id")
+    .single();
+
+  if (error) {
+    console.error("Error inserting product into Supabase:", error);
+    return;
+  }
+
+  const productUUID = data.id; // ✅ Get the inserted product ID
+  console.log("Product successfully stored in Supabase:", data);
+  console.log("Product UUID:", productUUID);
+
+  // ✅ Upload Each Image and Immediately Insert into Supabase
+  await Promise.all(
+    filteredBoxes.map(async (box, idx) => {
+      if (box.image instanceof File) {
+        await uploadFile(box.image, `Box ${idx + 1}`, productUUID, box);
+      }
+    })
+  );
+
+  setIsUploading(false);
+  console.log("All images uploaded and stored in Supabase.");
+};
